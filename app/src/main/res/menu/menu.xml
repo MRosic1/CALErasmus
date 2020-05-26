@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_lokalne"
+            android:title="Lokalne sekcije" />
+        <item
+            android:id="@+id/nav_nacionalne"
+            android:title="Nacionalne sekcije" />
+    </group>
+
+    <item android:title="Novi event">
+        <menu>
+            <item
+                android:id="@+id/nav_novi"
+                android:icon="@drawable/ic_add"
+                android:title="Novi event" />
+
+        </menu>
+    </item>
+
+</menu>
