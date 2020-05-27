@@ -54,7 +54,7 @@ public class MyGridAdapter extends ArrayAdapter {
         if(view == null){
             view = inflater.inflate(R.layout.single_cell_layout,parent,false);
         }
-
+        // postavi pozadinu za mjesec
         if(displayMonth == currentMonth && displayYear == currentYear){
             view.setBackgroundColor(getContext().getResources().getColor(R.color.blue));
         }

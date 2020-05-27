@@ -32,6 +32,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         return new MyViewHolder(view);
     }
 
+    // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         final Events events = arrayList.get(position);
@@ -54,6 +55,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         return arrayList.size();
     }
 
+
+    // stores and recycles views as they are scrolled off screen
     public class MyViewHolder extends  RecyclerView.ViewHolder{
 
         TextView DateText,Event,Time;

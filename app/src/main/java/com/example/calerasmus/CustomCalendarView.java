@@ -73,6 +73,7 @@ public class CustomCalendarView extends LinearLayout {
                 SetUpCalendar();
             }
         });
+        // za dodavanje događaja
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -120,7 +121,7 @@ public class CustomCalendarView extends LinearLayout {
                 alertDialog.show();
             }
         });
-
+        //za pregled i brisanje događaja
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
