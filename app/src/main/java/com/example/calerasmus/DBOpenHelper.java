@@ -9,8 +9,10 @@ import androidx.annotation.Nullable;
 public class DBOpenHelper extends SQLiteOpenHelper {
 
     private final static String CREATE_EVENTS_TABLE = "create table "+DBStructure.EVENT_TABLE_NAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-            +DBStructure.EVENT+" TEXT, "+DBStructure.TIME+" TEXT, "+DBStructure.DATE+" TEXT, "+DBStructure.MONTH+" TEXT, "+DBStructure.YEAR+" TEXT) ";
+            +DBStructure.EVENT+" TEXT, "+DBStructure.TIME+" TEXT, "+DBStructure.DATE+" TEXT, "+DBStructure.MONTH+" TEXT, "+DBStructure.YEAR+" TEXT, "+DBStructure.IME+" TEXT, "+DBStructure.LOZINKA+" TEXT) ";
     private static final String DROP_EVENTS_TABLE= "DROP TABLE IF EXISTS "+DBStructure.EVENT_TABLE_NAME;
+
+
 
     public DBOpenHelper(@Nullable Context context) {
         super(context, DBStructure.DB_NAME, null, DBStructure.DB_VERSION);
@@ -19,13 +21,50 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_EVENTS_TABLE);
+        db.execSQL("create table users (username TEXT primary key, password TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DROP_EVENTS_TABLE);
+        db.execSQL("drop table if exists users");
         onCreate(db);
     }
+
+    public boolean insertData(String username, String password){
+        SQLiteDatabase db =  this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("username",username);
+        contentValues.put("password",password);
+        long result = db.insert("users",null,contentValues);
+        if (result==-1){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public boolean checkusername(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from users where username = ?", new String[] {username});
+        if (cursor.getCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean checkusernamePassword(String username, String password){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from users where username = ? and password = ?", new String[] {username,password});
+        if (cursor.getCount() >0)
+            return true;
+        else
+            return false;
+    }
+
+
     //Spremanje eventova u bazu
     public void SaveEvent(String event,String time,String date,String month,String year,SQLiteDatabase database){
         ContentValues contentValues = new ContentValues();
